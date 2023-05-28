@@ -1,0 +1,70 @@
+﻿@model RuiRumos74252.Models.Product
+
+@{
+    ViewData["Title"] = "Details";
+}
+
+<h1>Details</h1>
+
+<div>
+    <h4>Product</h4>
+    <hr />
+    <dl class="row">
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Name)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Name)
+        </dd>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Price)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Price)
+        </dd>
+@*        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Picture)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Picture)
+        </dd>*@
+        <div class="form-group">
+            <img id="ProductImagePreview" class="border-info rounded-circle" style="max-width: 150px" />
+        </div>
+        <div class="form-group">
+            <label asp-for="Picture" class="control-label"></label>
+            <input asp-for="Picture" class="form-control" readonly="true" />
+            <span asp-validation-for="Picture" class="text-danger"></span>
+        </div>
+        <dt class = "col-sm-2">
+            @Html.DisplayNameFor(model => model.Description)
+        </dt>
+        <dd class = "col-sm-10">
+            @Html.DisplayFor(model => model.Description)
+        </dd>
+    </dl>
+</div>
+<br />
+<div>
+    <a asp-action="Edit" asp-route-id="@Model?.Id">Edit</a> |
+    <a asp-action="Index">Back to List</a>
+</div>
+
+@section Scripts {
+    @{
+        await Html.RenderPartialAsync("_ValidationScriptsPartial");
+    }
+
+    <script>
+
+        $(document).ready(function () {
+            var output = document.getElementById('ProductImagePreview');
+            output.src = $("#Picture").val();
+        })
+
+        $("#Picture").on("change", function () {
+            var output = document.getElementById('ProductImagePreview');
+            output.src = $(this).val();
+        })
+    </script>
+}
