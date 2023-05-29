@@ -1,0 +1,14 @@
+﻿@model RuiRumos74252.Models.Product
+
+<h2>Add to Cart</h2>
+
+<h3>@Model.Name</h3>
+<p>Price: $@Model.Price</p>
+
+<form method="post" action="@Url.Action("AddToCart", "Cart")">
+    <input type="hidden" name="productId" value="@Model.Id" />
+    <label for="quantity">Quantity:</label>
+    <input type="number" name="quantity" min="1" value="1" />
+    <br />
+    <input type="submit" value="Add to Cart" />
+</form>

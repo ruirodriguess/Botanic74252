@@ -13,5 +13,7 @@ namespace RuiRumos74252.Data
 
         public DbSet<Product> Product { get; set; }
 
+        public DbSet<CartItem> CartItems { get; set; }
+
     }
 }

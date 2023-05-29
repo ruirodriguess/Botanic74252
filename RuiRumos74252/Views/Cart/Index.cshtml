@@ -1,0 +1,40 @@
+﻿@model List<RuiRumos74252.Models.CartItem>
+
+<h2>Shopping Cart</h2>
+<br />
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Product</th>
+            <th>Quantity</th>
+            <th>Price</th>
+            <th>Picture</th>
+            <th>Actions</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var cartItem in Model)
+        {
+            <tr>
+                <td>@cartItem.Product.Name</td>
+                <td>@cartItem.Quantity</td>
+                <th>@cartItem.Product.Price.ToString("c")</th>
+                <th>
+                    <img src="@cartItem.Product.Picture" alt="Product Picture" width="100" height="100" />
+                </th>
+                <td>
+                    <a href="@Url.Action("RemoveFromCart", "Cart", new { cartItemId = cartItem.Id })">Remove</a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<div class="text-white">
+    <a asp-controller="Products" asp-action="Index" class="btn btn-secondary float-right"><i class="bi bi-plus-circle"></i> Continue shopping</a>
+</div>
+
+<div class="text-white">
+    <a asp-controller="Products" asp-action="Index" class="btn btn-success text-white"><i class="bi bi-plus-circle"></i> Checkout</a>
+</div>
