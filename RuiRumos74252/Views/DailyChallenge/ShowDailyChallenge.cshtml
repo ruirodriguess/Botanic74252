@@ -1,0 +1,17 @@
+﻿@model DailyChallenge
+
+<h2>Daily Challenge</h2>
+<hr />
+<br />
+
+<img src="@Model.ImageUrl" alt="Daily Challenge Image" />
+<br />
+<h4>Can you guess what this image is?</h4>
+<br />
+
+<form asp-controller="DailyChallenge" asp-action="SubmitAnswer" method="post">
+    <input type="hidden" name="challengeId" value="@Model.Id" />
+    <input type="text" name="answer" placeholder="Enter your answer" required />
+    <button type="submit">Submit</button>
+</form>
+
