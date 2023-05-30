@@ -22,17 +22,17 @@ namespace RuiRumos74252.Controllers
         }
         public IActionResult Index()
         {
-            // Retrieve the cart items from the database and display them in the view
+            // Recupera o CartItems da database e apresenta na View
             var cartItems = _context.CartItems.Include(ci => ci.Product).ToList();
             return View(cartItems);
         }
 
         public IActionResult AddToCart(int productId, int quantity, double price, string picture)
         {
-            // Retrieve the product from the database based on the product ID
+            // Recupera os produtos da database baseado no product ID
             var product = _context.Product.Find(productId);
 
-            // Create a new cart item with the product and quantity
+            // Cria um novo cart item com o produto e quantidade
             var cartItem = new CartItem
             {
                 ProductId = productId,
@@ -43,28 +43,28 @@ namespace RuiRumos74252.Controllers
                 
             };
 
-            // Add the cart item to the database
+            // Adiciona o cart item na database
             _context.CartItems.Add(cartItem);
             _context.SaveChanges();
 
-            // Redirect to the cart page or display a success message
+            // Redireciona para a View Index
             return RedirectToAction("Index");
         }
 
         public IActionResult RemoveFromCart(int cartItemId)
         {
-            // Retrieve the cart item from the database based on the cart item ID
+            // Recupera o cart item da databa baseado no cart item Id
             var cartItem = _context.CartItems.Find(cartItemId);
 
-            // Remove the cart item from the database
+            // Remove o cart item da database
             _context.CartItems.Remove(cartItem);
             _context.SaveChanges();
 
-            // Redirect to the cart page or display a success message
+            // Redireciona para a View Index
             return RedirectToAction("Index");
         }
 
-        // ------ CHECKOUT AREA -------
+        // --------------- CHECKOUT AREA --------------- //
 
         private List<CartItem> GetCartItems()
         {
@@ -80,12 +80,12 @@ namespace RuiRumos74252.Controllers
 
             var notification = new Notification
             {
-                OrderId = "teste123", // Replace with the actual order ID
-                CustomerEmail = "ruirodrigues04@outlook.pt", // Replace with the customer's email
+                OrderId = "teste123", // Substituir por uma ordem ID
+                CustomerEmail = "ruirodrigues04@outlook.pt", // Substituir pelo email do cliente/user
                 Products = new List<Product>()
             };
 
-            // Populate the Products list with the purchased products
+            // Preenche a lista de produtos com os produtos adquiridos
             foreach (var cartItem in cartItems)
             {
                 var product = new Product
@@ -97,20 +97,10 @@ namespace RuiRumos74252.Controllers
                 notification.Products.Add(product);
             }
 
-            //string recipientEmail = "ruirodrigues04@outlook.pt"; 
-            //string subject = "Order Confirmation";
-            //string message = "Thank you for your order!"; // Customize the message as needed
-
-            //// Serialize the notification object into a JSON string
-            //var notification = new Notification
-            //{
-            //    RecipientEmail = recipientEmail,
-            //    Subject = subject,
-            //    Message = message
-            //};
+            // Metodo para converter objectos em JSON
             string jsonMessage = JsonConvert.SerializeObject(notification);
 
-
+            // Informações tiradas do azure
             string connectionString = "DefaultEndpointsProtocol=https;AccountName=saruirumos74252;AccountKey=3B8VNSwQLx48BUS+I1TRZASRGRbRo/uYyB1pk2rZu87enJmtrAvAA4iCcdoXlVPjU3Z/R8z3KtVj+AStRq3k8g==;EndpointSuffix=core.windows.net";
             string queueName = "queueruirumos";
 
@@ -119,9 +109,8 @@ namespace RuiRumos74252.Controllers
 
             queueClient.SendMessage(jsonMessage);
 
-            // Mais tarde adicionar esta view
+            // Mais tarde adicionar esta view - FEITO!
             return View("Confirmation");
-            //return RedirectToAction("Confirmation");
         }
 
         public IActionResult Confirmation()

@@ -19,11 +19,6 @@ namespace RuiRumos74252.Controllers
             _userManager = userManager;
         }
                
-        //public UsersController(UserManager<IdentityUser> userManager)
-        //{
-        //    _userManager = userManager;
-        //}
-
         public IActionResult ListUsers()
         {
             var users = _userManager.Users.ToList();
@@ -47,8 +42,6 @@ namespace RuiRumos74252.Controllers
         }
 
         // POST: Products/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to.
-        // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(string id, Users user)

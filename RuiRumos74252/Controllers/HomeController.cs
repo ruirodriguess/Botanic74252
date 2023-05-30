@@ -23,6 +23,7 @@ namespace RuiRumos74252.Controllers
             return View();
         }
 
+        // Metodo para lidar e apresentar erros na pagina (asp.net mvc core)
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {
