@@ -21,10 +21,11 @@ namespace RuiRumos74252.Controllers
 
             _availablePhotos = new List<string>
             {
-                "catos.jpg",
-                "malmequer.jpg",
-                "rosa.jpg",
-                "tulipas.jpg"
+                "cato",
+                "malmequer",
+                "rosa",
+                "tulipa",
+                "palmeira"
             };
         }
 
@@ -46,13 +47,14 @@ namespace RuiRumos74252.Controllers
             CloudBlockBlob blob = _blobContainer.GetBlockBlobReference(randomPhoto);
             string imageUrl = blob.Uri.ToString();
 
-            _currentImageName = randomPhoto; // Armazena o nome da imagem atual na variável
+            HttpContext.Session.SetString("CurrentImageName", randomPhoto);
+
+            //_currentImageName = randomPhoto; 
 
             DailyChallenge challenge = new DailyChallenge
             {
                 Id = 1,
-                ImageUrl = imageUrl,
-                CorrectAnswer = _currentImageName
+                ImageUrl = imageUrl
             };
 
             return View(challenge);
@@ -61,13 +63,16 @@ namespace RuiRumos74252.Controllers
         [HttpPost]
         public IActionResult SubmitAnswer(int challengeId, string answer)
         {
+
+            string currentImageName = HttpContext.Session.GetString("CurrentImageName");
+
             // Retrieve the current image name from the session
 
             DailyChallenge challenge = new DailyChallenge
             {
                 Id = challengeId,
-                ImageUrl = "", // Set the image URL if needed
-                CorrectAnswer = _currentImageName // Use the provided currentImageName as the correct answer
+                ImageUrl = "", // Passar se necessário
+                CorrectAnswer = currentImageName // Use the provided currentImageName as the correct answer
             };
 
             if (string.Equals(answer, challenge.CorrectAnswer, StringComparison.OrdinalIgnoreCase))
