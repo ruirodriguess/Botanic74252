@@ -1,15 +1,16 @@
 ﻿using RuiRumos74252.Models;
 using System.ComponentModel;
 using Microsoft.Azure.Cosmos;
+using System.Net;
 
 namespace RuiRumos74252.Data.Services
 {
     public class AzureCosmosDBService : IAzureCosmosDBService
     {
-        private const string EndpointUrl = "YourCosmosDBEndpointUrl";
-        private const string PrimaryKey = "YourCosmosDBPrimaryKey";
-        private const string DatabaseName = "YourDatabaseName";
-        private const string ContainerName = "YourContainerName";
+        private const string EndpointUrl = "https://cosmossql74252.documents.azure.com:443/";
+        private const string PrimaryKey = "EZMnueBVnxq565ZpjHJ91I48vdPBA2iQLJc361s4alUPqnBp0J943flMUOR33XRbtByVPPacVrCZACDbx0posw==";
+        private const string DatabaseName = "blogdb74252";
+        private const string ContainerName = "blogcontainer74252";
 
         private readonly CosmosClient _cosmosClient;
         private readonly Microsoft.Azure.Cosmos.Container _container;
@@ -39,6 +40,34 @@ namespace RuiRumos74252.Data.Services
         public void AddComment(Comment comment)
         {
             _container.CreateItemAsync(comment);
+        }
+
+        public async Task CreateBlogPostAsync(BlogPost blogPost)
+        {
+            await _container.CreateItemAsync(blogPost, new PartitionKey(blogPost.Id));
+        }
+
+        public async Task<BlogPost> GetBlogPostAsync(string id)
+        {
+            try
+            {
+                var response = await _container.ReadItemAsync<BlogPost>(id, new PartitionKey(id));
+                return response.Resource;
+            }
+            catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
+            {
+                return null;
+            }
+        }
+
+        //public async Task UpdateBlogPostAsync(BlogPost blogPost)
+        //{
+        //    await _container.ReplaceItemAsync(blogPost, blogPost.Id, new PartitionKey(blogPost.Id));
+        //}
+
+        public async Task DeleteBlogPostAsync(string id)
+        {
+            await _container.DeleteItemAsync<BlogPost>(id, new PartitionKey(id));
         }
     }
 }

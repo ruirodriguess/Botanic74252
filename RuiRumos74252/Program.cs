@@ -4,6 +4,7 @@ using Microsoft.Extensions.DependencyInjection;
 using System;
 using RuiRumos74252.Data;
 using Microsoft.AspNetCore.Identity;
+using RuiRumos74252.Data.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -11,6 +12,8 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddControllersWithViews();
 
 builder.Services.AddDistributedMemoryCache();
+
+builder.Services.AddSingleton<IAzureCosmosDBService, AzureCosmosDBService>();
 
 builder.Services.AddSession(options =>
 {
