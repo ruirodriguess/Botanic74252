@@ -1,0 +1,18 @@
+﻿@model RuiRumos74252.Models.BlogPost
+
+@using (Html.BeginForm("Create", "Blog", FormMethod.Post, new { enctype = "multipart/form-data" }))
+{
+    <div>
+        @Html.LabelFor(model => model.Title)
+        @Html.TextBoxFor(model => model.Title)
+    </div>
+    <div>
+        @Html.LabelFor(model => model.Content)
+        @Html.TextAreaFor(model => model.Content)
+    </div>
+    <div>
+        @Html.Label("Image")
+        <input type="file" name="Image" accept="image/*" />
+    </div>
+    <input type="submit" value="Create" />
+}
