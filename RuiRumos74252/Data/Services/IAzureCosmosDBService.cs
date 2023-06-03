@@ -4,7 +4,15 @@ namespace RuiRumos74252.Data.Services
 {
     public interface IAzureCosmosDBService
     {
-        List<BlogPost> GetAllBlogPosts();
+        Task <IEnumerable<BlogPost>> GetAllBlogPostsAsync();
+        Task CreateBlogPostAsync(BlogPost blogPost);
+        Task<BlogPost> GetBlogPostAsync(string id);
+        Task UpdateBlogPostAsync(BlogPost blogPost);
+        Task DeleteBlogPostAsync(string id);
+
         void AddComment(Comment comment);
     }
+
 }
+
+

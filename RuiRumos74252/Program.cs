@@ -15,6 +15,8 @@ builder.Services.AddDistributedMemoryCache();
 
 builder.Services.AddSingleton<IAzureCosmosDBService, AzureCosmosDBService>();
 
+builder.Services.AddScoped<AzureCosmosDBService>();
+
 builder.Services.AddSession(options =>
 {
     options.Cookie.HttpOnly = true;

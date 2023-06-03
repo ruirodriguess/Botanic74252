@@ -1,6 +1,7 @@
-﻿@model RuiRumos74252.Models.BlogPost
+﻿@model BlogPost
 
-<h2>Create Blog Post</h2>
+<h1>Create Blog Post</h1>
+<br />
 
 @using (Html.BeginForm("Create", "Blog", FormMethod.Post))
 {
@@ -12,7 +13,7 @@
 
     <div class="form-group">
         @Html.LabelFor(model => model.Content)
-        @Html.TextAreaFor(model => model.Content, new { @class = "form-control" })
+        @Html.TextAreaFor(model => model.Content, new { @class = "form-control", rows = "5" })
         @Html.ValidationMessageFor(model => model.Content, "", new { @class = "text-danger" })
     </div>
 
@@ -21,14 +22,11 @@
         @Html.TextBoxFor(model => model.ImageUrl, new { @class = "form-control" })
         @Html.ValidationMessageFor(model => model.ImageUrl, "", new { @class = "text-danger" })
     </div>
-
     <br />
+
     <div class="form-group">
         <input type="submit" value="Create" class="btn btn-primary" />
-    </div>
-    <br />
-    <div>
-        <a asp-action="Index">Back to List</a>
+        <a asp-action="Index" class="btn btn-secondary">Back to List</a>
     </div>
 }
 

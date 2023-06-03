@@ -2,72 +2,67 @@
 using System.ComponentModel;
 using Microsoft.Azure.Cosmos;
 using System.Net;
+using Microsoft.AspNetCore.Http;
+using Microsoft.EntityFrameworkCore.Metadata.Internal;
 
 namespace RuiRumos74252.Data.Services
 {
     public class AzureCosmosDBService : IAzureCosmosDBService
     {
-        private const string EndpointUrl = "https://cosmossql74252.documents.azure.com:443/";
-        private const string PrimaryKey = "EZMnueBVnxq565ZpjHJ91I48vdPBA2iQLJc361s4alUPqnBp0J943flMUOR33XRbtByVPPacVrCZACDbx0posw==";
-        private const string DatabaseName = "blogdb74252";
-        private const string ContainerName = "blogcontainer74252";
+        private readonly string endpoint = "https://cosmossql74252.documents.azure.com:443/";
+        private readonly string key = "EZMnueBVnxq565ZpjHJ91I48vdPBA2iQLJc361s4alUPqnBp0J943flMUOR33XRbtByVPPacVrCZACDbx0posw==";
+        private readonly string databaseId = "blogdb74252";
+        private readonly string containerId = "blogcontainer74252";
 
-        private readonly CosmosClient _cosmosClient;
-        private readonly Microsoft.Azure.Cosmos.Container _container;
+        private readonly Microsoft.Azure.Cosmos.Container container;
 
         public AzureCosmosDBService()
         {
-            _cosmosClient = new CosmosClient(EndpointUrl, PrimaryKey);
-            var database = _cosmosClient.GetDatabase(DatabaseName);
-            _container = database.GetContainer(ContainerName);
+            var client = new CosmosClient(endpoint, key);
+            var database = client.GetDatabase(databaseId);
+            container = database.GetContainer(containerId);
         }
 
-        public List<BlogPost> GetAllBlogPosts()
+        public void AddComment(Comment comment)
+        {
+            container.CreateItemAsync(comment);
+        }
+
+        public async Task<IEnumerable<BlogPost>> GetAllBlogPostsAsync()
         {
             var query = new QueryDefinition("SELECT * FROM c");
-            var resultSetIterator = _container.GetItemQueryIterator<BlogPost>(query);
-
+            var results = container.GetItemQueryIterator<BlogPost>(query);
             var blogPosts = new List<BlogPost>();
-            while (resultSetIterator.HasMoreResults)
+
+            while (results.HasMoreResults)
             {
-                var response = resultSetIterator.ReadNextAsync().Result;
-                blogPosts.AddRange(response.ToList());
+                var response = await results.ReadNextAsync();
+                blogPosts.AddRange(response.Resource);
             }
 
             return blogPosts;
         }
 
-        public void AddComment(Comment comment)
-        {
-            _container.CreateItemAsync(comment);
-        }
-
         public async Task CreateBlogPostAsync(BlogPost blogPost)
         {
-            await _container.CreateItemAsync(blogPost, new PartitionKey(blogPost.Id));
+            await container.CreateItemAsync(blogPost, new PartitionKey(blogPost.Id.ToString()));
         }
 
         public async Task<BlogPost> GetBlogPostAsync(string id)
         {
-            try
-            {
-                var response = await _container.ReadItemAsync<BlogPost>(id, new PartitionKey(id));
-                return response.Resource;
-            }
-            catch (CosmosException ex) when (ex.StatusCode == HttpStatusCode.NotFound)
-            {
-                return null;
-            }
+            var response = await container.ReadItemAsync<BlogPost>(id, new PartitionKey(id));
+            return response.Resource;
         }
 
-        //public async Task UpdateBlogPostAsync(BlogPost blogPost)
-        //{
-        //    await _container.ReplaceItemAsync(blogPost, blogPost.Id, new PartitionKey(blogPost.Id));
-        //}
+        public async Task UpdateBlogPostAsync(BlogPost blogPost)
+        {
+            await container.ReplaceItemAsync(blogPost, blogPost.Id.ToString(), new PartitionKey(blogPost.Id.ToString()));
+        }
 
         public async Task DeleteBlogPostAsync(string id)
         {
-            await _container.DeleteItemAsync<BlogPost>(id, new PartitionKey(id));
+            await container.DeleteItemAsync<BlogPost>(id, new PartitionKey(id));
         }
+
     }
 }

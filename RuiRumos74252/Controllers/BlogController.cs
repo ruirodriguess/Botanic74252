@@ -1,23 +1,24 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using RuiRumos74252.Data.Services;
 using RuiRumos74252.Models;
+using Microsoft.Azure.Cosmos;
 
 namespace RuiRumos74252.Controllers
 {
+
     public class BlogController : Controller
     {
-        private readonly AzureBlobStorageService _blobStorageService;
-        private readonly AzureCosmosDBService _cosmosDBService;
+        
+        private readonly IAzureCosmosDBService _cosmosDBService;
 
-        public BlogController()
+        public BlogController(IAzureCosmosDBService cosmosDBService)
         {
-            _blobStorageService = new AzureBlobStorageService();
-            _cosmosDBService = new AzureCosmosDBService();
+            _cosmosDBService = cosmosDBService;
         }
 
-        public ActionResult Index()
+        public async Task<ActionResult> Index()
         {
-            var blogPosts = _cosmosDBService.GetAllBlogPosts();
+            var blogPosts = await _cosmosDBService.GetAllBlogPostsAsync();
             return View(blogPosts);
         }
 
@@ -43,50 +44,55 @@ namespace RuiRumos74252.Controllers
         {
             if (ModelState.IsValid)
             {
-                // Save the new blog post using your Azure Cosmos DB service
                 await _cosmosDBService.CreateBlogPostAsync(blogPost);
                 return RedirectToAction("Index");
             }
 
-            // If the model state is invalid, return the view with validation errors
             return View(blogPost);
         }
 
-        public ActionResult Edit(string id)
+        public async Task<ActionResult> Edit(string id)
         {
-            // Retrieve the blog post using the ID
-            var blogPost = _cosmosDBService.GetBlogPostAsync(id);
+            var blogPost = await _cosmosDBService.GetBlogPostAsync(id);
 
             if (blogPost != null)
             {
-                // Return a view to edit the blog post
                 return View(blogPost);
             }
 
-            // If the blog post is not found, return an error or redirect to another page
             return RedirectToAction("Index");
         }
 
-        //[HttpPost]
-        //public ActionResult Edit(BlogPost blogPost)
-        //{
-        //    if (ModelState.IsValid)
-        //    {
-        //        // Update the existing blog post using your Azure Cosmos DB service
-        //        _cosmosDBService.UpdateBlogPostAsync(blogPost);
-        //        return RedirectToAction("Index");
-        //    }
+        [HttpPost]
+        public ActionResult Edit(BlogPost blogPost)
+        {
+            if (ModelState.IsValid)
+            {
+                _cosmosDBService.UpdateBlogPostAsync(blogPost);
+                return RedirectToAction("Index");
+            }
 
-        //    // If the model state is invalid, return the view with validation errors
-        //    return View(blogPost);
-        //}
+            return View(blogPost);
+        }
 
         [HttpPost]
         public ActionResult Delete(string id)
         {
-            // Delete the blog post using the ID
             _cosmosDBService.DeleteBlogPostAsync(id);
             return RedirectToAction("Index");
         }
+
+        public async Task<ActionResult> Details(string id)
+        {
+            var blogPost = await _cosmosDBService.GetBlogPostAsync(id);
+
+            if (blogPost != null)
+            {
+                return View(blogPost);
+            }
+
+            return RedirectToAction("Index");
+        }
     }
+
 }
