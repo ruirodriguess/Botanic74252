@@ -9,9 +9,9 @@ namespace RuiRumos74252.Controllers
     public class BlogController : Controller
     {
         
-        private readonly IAzureCosmosDBService _cosmosDBService;
+        private readonly AzureCosmosDBService _cosmosDBService;
 
-        public BlogController(IAzureCosmosDBService cosmosDBService)
+        public BlogController(AzureCosmosDBService cosmosDBService)
         {
             _cosmosDBService = cosmosDBService;
         }
@@ -23,11 +23,11 @@ namespace RuiRumos74252.Controllers
         }
 
         [HttpPost]
-        public ActionResult AddComment(Comment comment)
+        public ActionResult AddComment(Comment comment, string blogPostId)
         {
             if (ModelState.IsValid)
             {
-                _cosmosDBService.AddComment(comment);
+                _cosmosDBService.AddComment(comment, blogPostId);
             }
 
             return RedirectToAction("Index");

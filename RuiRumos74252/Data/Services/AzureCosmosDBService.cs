@@ -13,19 +13,25 @@ namespace RuiRumos74252.Data.Services
         private readonly string key = "EZMnueBVnxq565ZpjHJ91I48vdPBA2iQLJc361s4alUPqnBp0J943flMUOR33XRbtByVPPacVrCZACDbx0posw==";
         private readonly string databaseId = "blogdb74252";
         private readonly string containerId = "blogcontainer74252";
+        private readonly string containerId2 = "comments74252";
 
         private readonly Microsoft.Azure.Cosmos.Container container;
+        private readonly Microsoft.Azure.Cosmos.Container container2;
 
         public AzureCosmosDBService()
         {
             var client = new CosmosClient(endpoint, key);
             var database = client.GetDatabase(databaseId);
             container = database.GetContainer(containerId);
+            container2 = database.GetContainer(containerId2);
         }
 
-        public void AddComment(Comment comment)
+        public void AddComment(Comment comment, string blogPostId)
         {
-            container.CreateItemAsync(comment);
+            comment.Id = Guid.NewGuid().ToString();
+            comment.CreatedAt = DateTime.UtcNow;
+            comment.BlogPostId = blogPostId;
+            container2.CreateItemAsync(comment);
         }
 
         public async Task<IEnumerable<BlogPost>> GetAllBlogPostsAsync()
@@ -45,7 +51,9 @@ namespace RuiRumos74252.Data.Services
 
         public async Task CreateBlogPostAsync(BlogPost blogPost)
         {
-            await container.CreateItemAsync(blogPost, new PartitionKey(blogPost.Id.ToString()));
+            blogPost.Id = Guid.NewGuid().ToString(); // Generate a unique string value for the id property
+            blogPost.CreatedAt = DateTime.UtcNow; // Define a data e hora atual
+            await container.CreateItemAsync(blogPost, new PartitionKey(blogPost.Id));
         }
 
         public async Task<BlogPost> GetBlogPostAsync(string id)

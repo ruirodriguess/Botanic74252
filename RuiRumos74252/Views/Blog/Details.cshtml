@@ -1,4 +1,4 @@
-﻿@model BlogPost
+﻿@model RuiRumos74252.Models.BlogPost
 
 <h2>@Model.Title</h2>
 <h5>@Model.Content</h5>
@@ -23,6 +23,22 @@ else
 {
     <p>No comments found.</p>
 }
+<br />
+
+<form asp-controller="Blog" asp-action="AddComment" method="post">
+    <input type="hidden" name="blogPostId" value="@Model.Id" />
+    <div>
+        <label for="content">Comment:</label>
+        <textarea name="content" id="content" required></textarea>
+    </div>
+    <div>
+        <label for="author">Author:</label>
+        <input type="text" name="author" id="author" required />
+    </div>
+    <button type="submit">Add Comment</button>
+</form>
+
+@*<a href="/BlogPosts/AddComment?postId=@Model.Id" class="btn btn-primary">Add new comment</a>*@
 
 <hr />
 

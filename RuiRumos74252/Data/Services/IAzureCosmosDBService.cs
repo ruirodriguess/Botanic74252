@@ -10,7 +10,7 @@ namespace RuiRumos74252.Data.Services
         Task UpdateBlogPostAsync(BlogPost blogPost);
         Task DeleteBlogPostAsync(string id);
 
-        void AddComment(Comment comment);
+        void AddComment(Comment comment, string blogPostId);
     }
 
 }
