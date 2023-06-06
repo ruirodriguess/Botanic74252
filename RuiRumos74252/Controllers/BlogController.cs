@@ -9,9 +9,9 @@ namespace RuiRumos74252.Controllers
     public class BlogController : Controller
     {
         
-        private readonly AzureCosmosDBService _cosmosDBService;
+        private readonly IAzureCosmosDBService _cosmosDBService;
 
-        public BlogController(AzureCosmosDBService cosmosDBService)
+        public BlogController(IAzureCosmosDBService cosmosDBService)
         {
             _cosmosDBService = cosmosDBService;
         }
@@ -88,7 +88,7 @@ namespace RuiRumos74252.Controllers
 
             if (blogPost != null)
             {
-                return View(blogPost);
+                return View(new List<BlogPost> { blogPost }); // Passa uma lista com um único objeto BlogPost
             }
 
             return RedirectToAction("Index");

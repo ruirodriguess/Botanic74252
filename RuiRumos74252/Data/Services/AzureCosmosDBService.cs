@@ -12,8 +12,8 @@ namespace RuiRumos74252.Data.Services
         private readonly string endpoint = "https://cosmossql74252.documents.azure.com:443/";
         private readonly string key = "EZMnueBVnxq565ZpjHJ91I48vdPBA2iQLJc361s4alUPqnBp0J943flMUOR33XRbtByVPPacVrCZACDbx0posw==";
         private readonly string databaseId = "blogdb74252";
-        private readonly string containerId = "blogcontainer74252";
-        private readonly string containerId2 = "comments74252";
+        private readonly string containerId = "blogcontainer74252"; // Para os blogs
+        private readonly string containerId2 = "comments74252"; // Para os comentários
 
         private readonly Microsoft.Azure.Cosmos.Container container;
         private readonly Microsoft.Azure.Cosmos.Container container2;
@@ -49,6 +49,7 @@ namespace RuiRumos74252.Data.Services
             return blogPosts;
         }
 
+
         public async Task CreateBlogPostAsync(BlogPost blogPost)
         {
             blogPost.Id = Guid.NewGuid().ToString(); // Generate a unique string value for the id property
@@ -59,8 +60,24 @@ namespace RuiRumos74252.Data.Services
         public async Task<BlogPost> GetBlogPostAsync(string id)
         {
             var response = await container.ReadItemAsync<BlogPost>(id, new PartitionKey(id));
-            return response.Resource;
+            var blogPost = response.Resource;
+
+            var commentQuery = new QueryDefinition("SELECT * FROM comments c WHERE c.blogPostId = @blogPostId")
+                .WithParameter("@blogPostId", blogPost.Id);
+            var commentResults = container2.GetItemQueryIterator<Comment>(commentQuery);
+            var comments = new List<Comment>();
+
+            while (commentResults.HasMoreResults)
+            {
+                var commentResponse = await commentResults.ReadNextAsync();
+                comments.AddRange(commentResponse.Resource);
+            }
+
+            blogPost.Comments = comments;
+
+            return blogPost;
         }
+
 
         public async Task UpdateBlogPostAsync(BlogPost blogPost)
         {

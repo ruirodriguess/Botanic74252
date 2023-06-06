@@ -1,46 +1,73 @@
-﻿@model RuiRumos74252.Models.BlogPost
+﻿@model IEnumerable<RuiRumos74252.Models.BlogPost>
 
-<h2>@Model.Title</h2>
-<h5>@Model.Content</h5>
-<p>Created at: @Model.CreatedAt</p>
-@if (!string.IsNullOrEmpty(Model.ImageUrl))
-{
-    <div>
-        <img src="@Model.ImageUrl" alt="Product Picture" width="200" height="200" />
-    </div>
+@{
+    ViewData["Title"] = "Blog Post Details";
 }
-<br>
 
-<h3>Comments:</h3>
-@if (Model.Comments != null && Model.Comments.Count > 0)
-{
-    foreach (var comment in Model.Comments)
-    {
-        <p>@comment.Content - By: @comment.Author</p>
-    }
-}
-else
-{
-    <p>No comments found.</p>
-}
-<br />
-
-<form asp-controller="Blog" asp-action="AddComment" method="post">
-    <input type="hidden" name="blogPostId" value="@Model.Id" />
-    <div>
-        <label for="content">Comment:</label>
-        <textarea name="content" id="content" required></textarea>
-    </div>
-    <div>
-        <label for="author">Author:</label>
-        <input type="text" name="author" id="author" required />
-    </div>
-    <button type="submit">Add Comment</button>
-</form>
-
-@*<a href="/BlogPosts/AddComment?postId=@Model.Id" class="btn btn-primary">Add new comment</a>*@
-
+<h2>Blog Post Details</h2>
 <hr />
 
+@foreach (var blogPost in Model)
+{
+    <h3>@blogPost.Title</h3>
+    <h6>@blogPost.Content</h6>
+    <p>Created at: @blogPost.CreatedAt</p>
+
+    @if (!string.IsNullOrEmpty(blogPost.ImageUrl))
+    {
+        <div>
+            <img src="@blogPost.ImageUrl" alt="Blog Post Image" width="200" height="200" />
+        </div>
+    }
+
+    <br />
+    <h4>Comments:</h4>
+    <br />
+
+    @if (blogPost.Comments != null && blogPost.Comments.Count > 0)
+    {
+        foreach (var comment in blogPost.Comments)
+        {
+            <section style="background-color: #808080;">
+                <div class="d-flex flex-start mb-4">
+                    <div class="card w-100">
+                        <div class="card-body p-4">
+                            <div class="">
+                                <h5>Author: @comment.Author</h5>
+                                <p class="small">@comment.CreatedAt</p>
+                                <p>Message: @comment.Content</p>                                           
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+        }
+    }
+    else
+    {
+        <p>No comments found.</p>
+    }
+
+    <br />
+    <hr />
+
+    <form asp-controller="Blog" asp-action="AddComment" method="post">
+        <input type="hidden" name="blogPostId" value="@blogPost.Id" />
+        <div class="form-outline mb-4">
+            <label class="form-label" for="content">Comment:</label>
+            <textarea name="content" id="content" class="form-control" id="form6Example7" rows="4"></textarea>
+            @*<textarea name="content" id="content" required></textarea>*@
+        </div>
+        <div class="form-outline mb-4">
+            <label class="form-label" for="author">Author:</label>
+            <textarea name="author" id="author" class="form-control" rows="1"></textarea>
+            @*<input type="text" name="author" id="author" required />*@
+        </div>
+        <button type="submit" class="btn btn-primary btn-block mb-4">Add Comment</button>
+    </form>
+
+    <hr />
+}
+
 <a asp-action="Index" class="btn btn-secondary">Back to List</a>
-<!-- Add any additional properties of the blog post that you want to display -->
+
