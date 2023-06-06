@@ -104,10 +104,16 @@ namespace RuiRumos74252.Controllers
             string connectionString = "DefaultEndpointsProtocol=https;AccountName=saruirumos74252;AccountKey=3B8VNSwQLx48BUS+I1TRZASRGRbRo/uYyB1pk2rZu87enJmtrAvAA4iCcdoXlVPjU3Z/R8z3KtVj+AStRq3k8g==;EndpointSuffix=core.windows.net";
             string queueName = "queueruirumos";
 
+            // Create a QueueClient instance
             QueueClient queueClient = new QueueClient(connectionString, queueName);
             queueClient.CreateIfNotExists();
 
+            // Send the JSON message to the queue
             queueClient.SendMessage(jsonMessage);
+
+            // Clear the cart items from the database
+            _context.CartItems.RemoveRange(cartItems);
+            _context.SaveChanges();
 
             // Mais tarde adicionar esta view - FEITO!
             return View("Confirmation");
