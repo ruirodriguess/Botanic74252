@@ -11,6 +11,7 @@ pool:
 
 variables:
   solution: '**/RuiRumos74252.sln'
+  unittests: '**/TestProject/TestProject.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
 
@@ -26,7 +27,8 @@ steps:
     command: 'build'
     projects: '$(solution)'
 
-- task: VSTest@2
+- task: DotNetCoreCLI@2
   inputs:
-    platform: '$(buildPlatform)'
-    configuration: '$(buildConfiguration)'
+    command: 'test'
+    projects: '$(unittests)'
+
