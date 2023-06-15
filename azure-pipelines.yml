@@ -9,6 +9,8 @@ variables:
   unittests: '**/TestProject/TestProject.csproj'
   buildPlatform: 'Any CPU'
   buildConfiguration: 'Release'
+  azureSubscription: '0c279d29-0c31-44bc-8797-7839cfae9ca8'
+  appName: 'RuiRumos74252'
 
 steps:
 - task: NuGetToolInstaller@1
@@ -32,3 +34,15 @@ steps:
     command: 'publish'
     publishWebProjects: true
 
+- task: PublishBuildArtifacts@1
+  inputs:
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: 'WebAppPipeline'
+    
+- task: AzureWebApp@1
+  inputs:
+    azureSubscription: $(azureSubscription)
+    appType: 'webApp'
+    appName: $(appName)
+    package: '$(System.ArtifactsDirectory)/**/*.zip'
+    runtimeStack: 'DOTNETCORE|7.0'
