@@ -76,12 +76,6 @@ namespace RuiRumos74252.Controllers
 
         }
 
-        // Contador sequencial para gerar o ID - Inicia no 100
-        public class ApplicationState
-        {
-            public static int OrderIdCounter { get; set; } = 100;
-        }
-
         public IActionResult Checkout()
         {
 
@@ -90,12 +84,13 @@ namespace RuiRumos74252.Controllers
             // Obter o email do usuário 
             var userEmail = User.FindFirstValue(ClaimTypes.Email);
 
-            // Gere um novo ID
-            var orderId = $"{ApplicationState.OrderIdCounter++}";
+            // Gere um novo ID aleatório entre 1 e 100000
+            var random = new Random();
+            var orderId = random.Next(1, 100001);
 
             var notification = new Notification
             {
-                OrderId = orderId, 
+                OrderId = orderId.ToString(), 
                 CustomerEmail = userEmail, 
                 Products = new List<Product>(),
                 Subject = "New order",
@@ -146,5 +141,6 @@ namespace RuiRumos74252.Controllers
             return View(notification);
         }
 
+        
     }
 }
