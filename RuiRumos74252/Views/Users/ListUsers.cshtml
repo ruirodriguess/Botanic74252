@@ -7,13 +7,13 @@
 }
 
 <h2>List of Users</h2>
+<br />
 
 <table class="table">
     <thead>
         <tr>
             <th>Username</th>
             <th>Email</th>
-            <th>PhoneNumber</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -23,9 +23,8 @@
             <tr>
                 <td>@user.UserName</td>
                 <td>@user.Email</td>
-                <td>@user.PhoneNumber</td>
                 <td class="align-middle">
-                    <a class="btn btn-secondary" asp-action="Edit" asp-route-id="@user.Id"><i class="bi bi-pencil-square"></i>Edit </a>
+                    @*<a class="btn btn-secondary" asp-action="Edit" asp-route-id="@user.Id"><i class="bi bi-pencil-square"></i>Edit </a>*@
                     <a class="btn btn-danger text-white" asp-action="Delete" asp-route-id="@user.Id"><i class="bi bi-trash"></i>Delete </a>
                 </td>
             </tr>

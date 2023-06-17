@@ -1,4 +1,5 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.WindowsAzure.Storage;
 using Microsoft.WindowsAzure.Storage.Blob;
@@ -7,6 +8,7 @@ using System.Reflection.Metadata;
 
 namespace RuiRumos74252.Controllers
 {
+    [Authorize]
     public class DailyChallengeController : Controller
     {
         private readonly CloudBlobContainer _blobContainer;

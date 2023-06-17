@@ -1,12 +1,15 @@
-﻿using Microsoft.AspNetCore.Identity;
+﻿using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using RuiRumos74252.Data;
 using RuiRumos74252.Models;
+using System.Data;
 using System.Linq;
 
 namespace RuiRumos74252.Controllers
 {
+    [Authorize(Roles = "Admin")]
     public class UsersController : Controller
     {
 

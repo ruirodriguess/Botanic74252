@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
 using Microsoft.EntityFrameworkCore;
@@ -10,6 +11,7 @@ using RuiRumos74252.Models;
 
 namespace RuiRumos74252.Controllers
 {
+    [Authorize]
     public class ProductsController : Controller
     {
         private readonly AppDbContext _context;
@@ -27,6 +29,7 @@ namespace RuiRumos74252.Controllers
                           Problem("Entity set 'AppDbContext.Product'  is null.");
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Index2()
         {
             return _context.Product != null ?
@@ -35,6 +38,7 @@ namespace RuiRumos74252.Controllers
         }
 
         // GET: Products/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null || _context.Product == null)
@@ -53,6 +57,7 @@ namespace RuiRumos74252.Controllers
         }
 
         // GET: Products/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -61,6 +66,7 @@ namespace RuiRumos74252.Controllers
         // POST: Products/Create
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,Name,Price,Picture,Description")] Product product)
         {
             if (ModelState.IsValid)
@@ -73,6 +79,7 @@ namespace RuiRumos74252.Controllers
         }
 
         // GET: Products/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null || _context.Product == null)
@@ -91,6 +98,7 @@ namespace RuiRumos74252.Controllers
         // POST: Products/Edit/5
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int id, [Bind("Id,Name,Price,Picture,Description")] Product product)
         {
             if (id != product.Id)
@@ -122,6 +130,7 @@ namespace RuiRumos74252.Controllers
         }
 
         // GET: Products/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null || _context.Product == null)
@@ -142,6 +151,7 @@ namespace RuiRumos74252.Controllers
         // POST: Products/Delete/5
         [HttpPost, ActionName("Delete")]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
             if (_context.Product == null)

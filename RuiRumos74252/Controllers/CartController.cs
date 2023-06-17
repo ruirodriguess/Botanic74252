@@ -6,9 +6,12 @@ using RuiRumos74252.Models;
 using Azure.Storage.Queues;
 using Azure.Storage.Queues.Models;
 using Newtonsoft.Json;
+using Microsoft.AspNetCore.Authorization;
+using System.Security.Claims;
 
 namespace RuiRumos74252.Controllers
 {
+    [Authorize]
     public class CartController : Controller
     {
 
@@ -73,16 +76,30 @@ namespace RuiRumos74252.Controllers
 
         }
 
+        // Contador sequencial para gerar o ID - Inicia no 100
+        public class ApplicationState
+        {
+            public static int OrderIdCounter { get; set; } = 100;
+        }
+
         public IActionResult Checkout()
         {
 
             var cartItems = GetCartItems();
 
+            // Obter o email do usuário 
+            var userEmail = User.FindFirstValue(ClaimTypes.Email);
+
+            // Gere um novo ID
+            var orderId = $"{ApplicationState.OrderIdCounter++}";
+
             var notification = new Notification
             {
-                OrderId = "teste123", // Substituir por uma ordem ID
-                CustomerEmail = "ruirodrigues04@outlook.pt", // Substituir pelo email do cliente/user
-                Products = new List<Product>()
+                OrderId = orderId, 
+                CustomerEmail = userEmail, 
+                Products = new List<Product>(),
+                Subject = "New order",
+                Message = "We receive a new order. Details:"
             };
 
             // Preenche a lista de produtos com os produtos adquiridos
@@ -92,6 +109,7 @@ namespace RuiRumos74252.Controllers
                 {
                     Name = cartItem.Product.Name,
                     Price = cartItem.Product.Price,
+                    
                 };
 
                 notification.Products.Add(product);

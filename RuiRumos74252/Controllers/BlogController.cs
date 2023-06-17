@@ -2,10 +2,11 @@
 using RuiRumos74252.Data.Services;
 using RuiRumos74252.Models;
 using Microsoft.Azure.Cosmos;
+using Microsoft.AspNetCore.Authorization;
 
 namespace RuiRumos74252.Controllers
 {
-
+    [Authorize]
     public class BlogController : Controller
     {
         
@@ -51,6 +52,7 @@ namespace RuiRumos74252.Controllers
             return View(blogPost);
         }
 
+        [Authorize(Roles = "Admin")]
         public async Task<ActionResult> Edit(string id)
         {
             var blogPost = await _cosmosDBService.GetBlogPostAsync(id);
@@ -64,6 +66,7 @@ namespace RuiRumos74252.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Edit(BlogPost blogPost)
         {
             if (ModelState.IsValid)
@@ -76,6 +79,7 @@ namespace RuiRumos74252.Controllers
         }
 
         [HttpPost]
+        [Authorize(Roles = "Admin")]
         public ActionResult Delete(string id)
         {
             _cosmosDBService.DeleteBlogPostAsync(id);
