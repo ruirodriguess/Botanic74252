@@ -18,6 +18,12 @@ steps:
 - task: NuGetCommand@2
   inputs:
     restoreSolution: '$(solution)'
+- task: DotNetCoreCLI@2
+  inputs:
+    command: 'restore'
+    projects: '**/RuiRumos74252.sln'
+    feedsToUse: 'select'
+    vstsFeed: '3357f51f-0f3a-40fe-8816-ec45ae9c8862'
 
 - task: DotNetCoreCLI@2
   inputs:
