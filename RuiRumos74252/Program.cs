@@ -5,6 +5,7 @@ using System;
 using RuiRumos74252.Data;
 using Microsoft.AspNetCore.Identity;
 using RuiRumos74252.Data.Services;
+using RuiRumos74252.Models;
 
 var builder = WebApplication.CreateBuilder(args);
 
