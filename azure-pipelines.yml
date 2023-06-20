@@ -40,7 +40,8 @@ steps:
     command: 'publish'
     projects: '**/RuiRumos74252/RuiRumos74252.csproj'
     publishWebProjects: true
-    zipAfterPublish: false
+    arguments: '--configuration $(BuildConfiguration)  --output $(Build.ArtifactStagingDirectory)'
+    zipAfterPublish: True
 - task: AzureRmWebAppDeployment@4
   inputs:
     ConnectionType: 'AzureRM'
