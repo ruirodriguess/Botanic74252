@@ -38,6 +38,7 @@ steps:
 - task: DotNetCoreCLI@2
   inputs:
     command: 'publish'
+    projects: '**/RuiRumos74252/RuiRumos74252.csproj'
     publishWebProjects: true
     zipAfterPublish: false
 - task: AzureRmWebAppDeployment@4
