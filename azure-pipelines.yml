@@ -55,6 +55,6 @@ steps:
     azureSubscription: 'ruirodriguesrumos74252(0c279d29-0c31-44bc-8797-7839cfae9ca8)'
     appType: 'webApp'
     appName: 'RuiRumos74252'
-    package: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    package: '$(System.ArtifactsDirectory)/**/*.zip'
     deploymentMethod: 'auto'
 
