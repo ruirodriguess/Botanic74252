@@ -11,6 +11,7 @@ variables:
   buildConfiguration: 'Release'
   azureSubscription: '0c279d29-0c31-44bc-8797-7839cfae9ca8'
   appName: 'RuiRumos74252'
+  artifactName: 'articFactNameRui'
 
 steps:
 - task: NuGetToolInstaller@1
@@ -42,10 +43,18 @@ steps:
     publishWebProjects: true
     arguments: '--configuration $(BuildConfiguration)  --output $(Build.ArtifactStagingDirectory)'
     zipAfterPublish: True
-- task: AzureRmWebAppDeployment@4
+
+- task: PublishBuildArtifacts@1
+  displayName: Publish Artifacts
   inputs:
-    ConnectionType: 'AzureRM'
+    PathtoPublish: '$(Build.ArtifactStagingDirectory)'
+    ArtifactName: '$(artifactName)'
+
+- task: AzureWebApp@1
+  inputs:
     azureSubscription: 'ruirodriguesrumos74252(0c279d29-0c31-44bc-8797-7839cfae9ca8)'
     appType: 'webApp'
-    WebAppName: 'RuiRumos74252'
-    packageForLinux: '$(System.DefaultWorkingDirectory)/**/*.zip'
+    appName: 'RuiRumos74252'
+    package: '$(System.ArtifactsDirectory)/**/*.zip'
+    deploymentMethod: 'auto'
+
