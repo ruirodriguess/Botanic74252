@@ -7,6 +7,7 @@
 <br />
 
 > Access the web application through your preferred web browser at [HERE](https://ruirumos74252.azurewebsites.net/)
+<br />
 
 ### Technologies Used
 * ASP.NET MVC (C#)
@@ -48,6 +49,8 @@ The third functionality is the blog section, where users can upload their own bo
 The Botany WebApp was developed using the ASP.NET MVC framework in C#, along with front-end technologies such as HTML, CSS, and JavaScript. I tried to create a python application to handle checkout queues but I couldn't finish. The purpose of the application was after the queue, an email was sent to the carrier.
 
 The application was version-controlled on GitHub for versioning and collaboration. The project was also implemented with a scalable and modular architecture, following best practices in web development. A pipeline was created in devops for CI/CD.
+
+This project was ambitious and I went through several difficulties, but I came out better prepared for the real world. Hope you like the final result.
 
 ## Contacts 
 
