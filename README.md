@@ -2,11 +2,11 @@
   <img src="https://static.vecteezy.com/ti/vetor-gratis/p1/9644381-banner-plante-e-deixe-espaco-para-texto-em-fundo-branco-vetor.jpg" width="100%" height="200" title="hover text">
 </p>
 
-<h1 align="center">Botanic74252</h1>
+<h1 align="center">Welcome to Botanic74252 :shamrock:</h1>
 <h6 align="center">This is a web application developed as part of a programming course project. The Botanic WebApp focuses on botany-related activities such as purchasing products, daily challenges, and a blog section</h3>
 <br />
 
-> Access the web application through your preferred web browser at [HERE](https://ruirumos74252.azurewebsites.net/)
+> :green_square: Access the web application through your preferred web browser at [HERE](https://ruirumos74252.azurewebsites.net/)
 <br />
 
 ### Technologies Used
@@ -28,11 +28,9 @@
 
   
 ### Features
-**Product Shop:** Users can browse and purchase botany-related products;
-
-**Daily Challenge:** Users can participate in daily challenges where they need to guess the name of an image related to botany;
-
-**Blog Section:** Users can upload photos to share with others and receive comments on their posts;
+* Product Shop: Users can browse and purchase botany-related products
+* Daily Challenge: Users can participate in daily challenges where they need to guess the name of an image related to botany
+* Blog Section: Users can upload photos to share with others and receive comments on their posts
 
 <br />
 <h4 align="center">Resume</h1>
@@ -51,6 +49,18 @@ The Botany WebApp was developed using the ASP.NET MVC framework in C#, along wit
 The application was version-controlled on GitHub for versioning and collaboration. The project was also implemented with a scalable and modular architecture, following best practices in web development. A pipeline was created in devops for CI/CD.
 
 This project was ambitious and I went through several difficulties, but I came out better prepared for the real world. Hope you like the final result.
+
+<br />
+
+### This application have:
+
+* Public part (accessible without authentication)
+* Private part (available for registered users)
+* Administrative part (available for administrators only) - Ask me 
+
+### Prerequisites
+* Visual Studio 2022 or higher
+* .NET 7.x SDK
 
 <br />
 
