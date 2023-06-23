@@ -53,9 +53,12 @@ The application was version-controlled on GitHub for versioning and collaboratio
 This project was ambitious and I went through several difficulties, but I came out better prepared for the real world. Hope you like the final result.
 
 <br />
+
 ## Contacts 
 
 For any questions, feel free to send an email to ruirodrigues04@outlook.pt
+
+<br />
 
 <h3 align="center">Connect with me:</h3>
 <p align="center">
@@ -63,5 +66,3 @@ For any questions, feel free to send an email to ruirodrigues04@outlook.pt
 <a href="https://instagram.com/ruirodrigues04" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/instagram.svg" alt="ruirodrigues04" height="30" width="40" /></a>
 <a href="https://discord.gg/ruirodrigues04@outlook.pt" target="blank"><img align="center" src="https://raw.githubusercontent.com/rahuldkjain/github-profile-readme-generator/master/src/images/icons/Social/discord.svg" alt="ruirodrigues04@outlook.pt" height="30" width="40" /></a>
 </p>
-
-<br/>
