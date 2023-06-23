@@ -35,7 +35,7 @@
 **Blog Section:** Users can upload photos to share with others and receive comments on their posts;
 
 <br />
-<h3 align="center">Resume</h1>
+<h4 align="center">Resume</h1>
 <br />
 
 The Botany WebApp is a web application developed as a final project for a programming course. The project aims to provide an interactive platform related to botany. The application features three main functionalities.
