@@ -33,6 +33,22 @@
 
 **Blog Section:** Users can upload photos to share with others and receive comments on their posts;
 
+<br />
+<h3 align="center">Resume</h1>
+<br />
+
+The Botany WebApp is a web application developed as a final project for a programming course. The project aims to provide an interactive platform related to botany. The application features three main functionalities.
+
+The first functionality allows users to purchase botany-related products. Users can browse the product catalog, add items to the cart, and proceed with checkout.
+
+The second functionality is the Daily Challenge, where users are presented with an image related to botany and challenged to guess its name. Each day features a new image, enabling users to test their knowledge and track their progress.
+
+The third functionality is the blog section, where users can upload their own botany-related photos and receive comments from other users. This section fosters a community around the shared passion for botany, providing a platform for learning, inspiration, and connection.
+
+The Botany WebApp was developed using the ASP.NET MVC framework in C#, along with front-end technologies such as HTML, CSS, and JavaScript. I tried to create a python application to handle checkout queues but I couldn't finish. The purpose of the application was after the queue, an email was sent to the carrier.
+
+The application was version-controlled on GitHub for versioning and collaboration. The project was also implemented with a scalable and modular architecture, following best practices in web development. A pipeline was created in devops for CI/CD.
+
 ## Contacts 
 
 For any questions, feel free to send an email to ruirodrigues04@outlook.pt
