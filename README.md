@@ -1,15 +1,14 @@
-# Botanic74252 WebApp
+<h1 align="center">Botanic74252</h1>
+<h6 align="center">This is a web application developed as part of a programming course project. The Botanic WebApp focuses on botany-related activities such as purchasing products, daily challenges, and a blog section</h3>
+<br />
 
-_This is a web application developed as part of a programming course project. The Botany WebApp focuses on botany-related activities such as purchasing products, daily challenges, and a blog section for photo uploads and comments._
-
-> Access the web application through your preferred web browser at ruirumos74252.azurewebsites.net
-
-Use this information to login as admin:
+Access the web application through your preferred web browser at [HERE](ruirumos74252.azurewebsites.net)
 
 ### Technologies Used
 * ASP.NET MVC (C#)
 * HTML/CSS
 * JavaScript
+* Python
 * Entity Framework (for data access)
 * GitHub (for version control and project repository)
 * Azure
