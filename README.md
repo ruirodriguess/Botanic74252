@@ -1,3 +1,7 @@
+<p align="center">
+  <img src="https://static.vecteezy.com/ti/vetor-gratis/p1/9644381-banner-plante-e-deixe-espaco-para-texto-em-fundo-branco-vetor.jpg" width="100%" height="80" title="hover text">
+</p>
+
 <h1 align="center">Botanic74252</h1>
 <h6 align="center">This is a web application developed as part of a programming course project. The Botanic WebApp focuses on botany-related activities such as purchasing products, daily challenges, and a blog section</h3>
 <br />
