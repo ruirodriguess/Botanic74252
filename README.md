@@ -15,6 +15,7 @@
 * JavaScript
 * Python
 * Entity Framework (for data access)
+* Unit Testing
 * GitHub (for version control and project repository)
 * Azure
 * DevOps
