@@ -6,7 +6,7 @@
 <h6 align="center">This is a web application developed as part of a programming course project. The Botanic WebApp focuses on botany-related activities such as purchasing products, daily challenges, and a blog section</h3>
 <br />
 
-> Access the web application through your preferred web browser at [HERE](ruirumos74252.azurewebsites.net)
+> Access the web application through your preferred web browser at ruirumos74252.azurewebsites.net
 
 ### Technologies Used
 * ASP.NET MVC (C#)
