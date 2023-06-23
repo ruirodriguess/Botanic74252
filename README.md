@@ -52,6 +52,7 @@ The application was version-controlled on GitHub for versioning and collaboratio
 
 This project was ambitious and I went through several difficulties, but I came out better prepared for the real world. Hope you like the final result.
 
+<br />
 ## Contacts 
 
 For any questions, feel free to send an email to ruirodrigues04@outlook.pt
