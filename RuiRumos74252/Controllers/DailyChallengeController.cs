@@ -73,7 +73,7 @@ namespace RuiRumos74252.Controllers
             DailyChallenge challenge = new DailyChallenge
             {
                 Id = challengeId,
-                ImageUrl = "", // Passar se necessário
+                ImageUrl = "", // Only if necessary 
                 CorrectAnswer = currentImageName // Use the provided currentImageName as the correct answer
             };
 
